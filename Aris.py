@@ -22,14 +22,14 @@ engine.setProperty('voice', voice_id)
 
 current_hour = int(time.strftime('%H'))
 if current_hour < 12:
-    print("Good morning Rayyan, I am Aris, how can I help you?")
-    engine.say("Good morning Rayyan, I am Aris, how can I help you?")
+    print("Good morning Rayyan, I am Luna, how can I help you?")
+    engine.say("Good morning Rayyan, I am Luna, how can I help you?")
 elif 12 <= current_hour < 16:
-    print("Good afternoon Rayyan, I am Aris, how can I help you?")
-    engine.say("Good afternoon Rayyan, I am Aris, how can I help you?")
+    print("Good afternoon Rayyan, I am Luna, how can I help you?")
+    engine.say("Good afternoon Rayyan, I am Luna, how can I help you?")
 else:
-    print("Good evening Rayyan, I am Aris, how can I help you?")
-    engine.say("Good evening Rayyan, I am Aris, how can I help you?")
+    print("Good evening Rayyan, I am Luna, how can I help you?")
+    engine.say("Good evening Rayyan, I am Luna, how can I help you?")
 engine.runAndWait()
 
 # Storing recognizer function in recognizer variable
@@ -42,7 +42,7 @@ def talk(cmd):
     global chat
 
     # Setting up prompt
-    chat += f"Rayyan: {cmd}\nAris:"
+    chat += f"Rayyan: {cmd}\nLuna:"
 
     # Cohere API call
     response = co.generate(
