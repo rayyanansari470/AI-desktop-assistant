@@ -99,7 +99,9 @@ def ai(prompt):
     # Move the file to the desktop
     try:
         shutil.move(file_path, desktop_path)
-        print(f"Document moved to {desktop_path} successfully!")
+        print("Document moved to desktop successfully!")
+        engine.say("Document moved to desktop successfully!")
+        engine.runAndWait()
     except Exception as e:
         print(f"Error moving the file: {e}")
 
@@ -137,25 +139,36 @@ def execute_command(cmd):
         return
 
     if is_active:
-        if "open google" in cmd:
-            webbrowser.open("https://www.google.com")
-        elif "close browser" in cmd:
+        sites = [["google","https://www.google.com" ], ["youtube", "https://www.youtube.com"], ["wikipedia", "https://www.wikipedia.com"]]
+        for site in sites:
+            if f"open {site[0]}" in cmd:
+                engine.say(f"opening {site[0]}!")
+                engine.runAndWait()
+                webbrowser.open(site[1])
+        if "close browser" in cmd:
+            engine.say("closing browser!")
+            engine.runAndWait()
             os.system("taskkill /f /im chrome.exe")
-        elif "open youtube" in cmd:
-            webbrowser.open("https://www.youtube.com")
         elif "open whatsapp" in cmd:
+            engine.say("opening whatsapp!")
+            engine.runAndWait()
             open("Whatsapp")
         elif "close whatsapp" in cmd:
+            engine.say("closing whatsapp!")
+            engine.runAndWait()
             close("Whatsapp")
         elif "open notepad" in cmd:
+            engine.say("opening notepad!")
+            engine.runAndWait()
             open("notepad")
         elif "close notepad" in cmd:
+            engine.say("closing notepad!")
+            engine.runAndWait()
             close("notepad")
         elif "shutdown the computer" in cmd:
-            os.system("shutdown /s /t 1")
-        elif "meet my family" in cmd:
-            engine.say("Hello dear siblings! Nice to meet you all. I am Aris")
+            engine.say("shutting down!")
             engine.runAndWait()
+            os.system("shutdown /s /t 1")
         elif "what is current time" in cmd:
             current_time = time.localtime(time.time())
             say_time = "Current time is " + time.asctime(current_time)
@@ -164,6 +177,8 @@ def execute_command(cmd):
         elif "search for" in cmd:
             search_query = cmd.split("search for ")[1].strip()
             search_url = "https://www.google.com/search?q=" + search_query.replace(" ", "+")
+            engine.say("searching!")
+            engine.runAndWait()
             webbrowser.open(search_url)
         elif "using artificial intelligence" in cmd:
             ai(prompt=cmd)
@@ -178,7 +193,7 @@ def main():
         if keyboard.is_pressed('ctrl+shift+o'):  # Turn on manually
             if not is_active:
                 is_active = True
-                engine.say("Yes? How can I help you?")
+                engine.say("Yes Rayyan? How can I help you?")
                 engine.runAndWait()
 
         # Listen for voice command only when active
